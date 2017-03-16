@@ -83,7 +83,7 @@ Laya.stage.on(Laya.Event.KEY_UP, this, function (e) {
 })
 
 
-createApes();
+start();
 
 
 
@@ -104,7 +104,7 @@ function createApes() {
 
 }
 
-var MAX_TIMES = 2; /* 几轮，每轮出现随机数量的碰撞物 */
+var MAX_TIMES = 6; /* 偶数，几轮，每轮出现随机数量的碰撞物 */
 
 function addFly(i) {
 
@@ -260,4 +260,47 @@ function reset() {
         playAgain.destroy();
     socre = 0;
     updateSocre(socreTxt, 0)
+}
+function start () {
+    var startGame = new laya.display.Text();//创建一个 Text 类的实例对象 text 。
+    Laya.stage.addChild(startGame);//将 startGame 添加到显示列表。    
+    startGame.text = `Start`;
+    startGame.color = '#fff';//设置 startGame 的文本颜色。
+    startGame.font = "Arial";//设置 startGame 的文本字体。
+    startGame.bold = true;//设置 startGame 的文本显示为粗体。
+    startGame.fontSize = 20;//设置 startGame 的字体大小。
+    startGame.x = 300 - 100;//设置 startGame 对象的属性 x 的值，用于控制 startGame 对象的显示位置。
+    startGame.y = 200 - 50 ;//设置 startGame 对象的属性 y 的值，用于控制 startGame 对象的显示位置。
+    startGame.width = 200;//设置 startGame 的宽度。
+    startGame.height = 50;//设置 startGame 的高度。
+    startGame.bgColor = '#fed100';
+    startGame.align = 'center';
+    startGame.valign = 'middle';
+
+    var gameTip = new laya.display.Text();//创建一个 Text 类的实例对象 text 。
+    Laya.stage.addChild(gameTip);//将 gameTip 添加到显示列表。    
+    gameTip.text = `Start`;
+    gameTip.color = '#fff';//设置 gameTip 的文本颜色。
+    gameTip.font = "Arial";//设置 gameTip 的文本字体。
+    gameTip.fontSize = 14;//设置 gameTip 的字体大小。
+    gameTip.x = 0;//设置 gameTip 对象的属性 x 的值，用于控制 gameTip 对象的显示位置。
+    gameTip.y = 200 ;//设置 gameTip 对象的属性 y 的值，用于控制 gameTip 对象的显示位置。
+    gameTip.width = 600;//设置 gameTip 的宽度。
+    gameTip.height = 50;//设置 gameTip 的高度。
+    gameTip.align = 'center';
+    gameTip.valign = 'middle';
+    gameTip.text = `Use ' ← ' and ' → ' to control the plane move to left or right.`;
+    startGame.on('click', this, function(){
+        startGame.destroy();
+        gameTip.destroy();
+        createApes();
+    });
+    startGame.on(Laya.Event.MOUSE_MOVE, this, function() {
+        startGame.bgColor = '#fff';
+        startGame.color = '#fed100';//设置 startGame 的文本颜色。
+    });
+    startGame.on(Laya.Event.MOUSE_OUT, this, function() {
+        startGame.bgColor = '#fed100';
+        startGame.color = '#fff';//设置 startGame 的文本颜色。
+    });
 }
